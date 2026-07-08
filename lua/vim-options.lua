@@ -9,3 +9,4 @@ vim.keymap.set('n','<C-m>', ':wa|:CMakeBuild<CR>', {})
 vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, { desc = 'LSP Rename Symbol' })
 vim.opt.breakindent = true
 vim.opt.showbreak = "↳ "
+vim.opt.clipboard = "unnamedplus"
