@@ -1,0 +1,8 @@
+*
+!*/
+!*.lua
+!lsp/
+!lua/
+!init.lua
+!.gitignore
+
