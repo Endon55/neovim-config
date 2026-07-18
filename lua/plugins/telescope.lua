@@ -10,6 +10,7 @@ dependencies = {
         vim.keymap.set('n', '<C-p>', builtin.find_files, {})
         --vim.keymap.set('n', '<leader>', builtin.find_files, {})
         vim.keymap.set('n', '<leader>sb', builtin.current_buffer_fuzzy_find, { desc = '[S]earch current [B]uffer' })
+        vim.keymap.set('n', '<leader>sa', builtin.live_grep, { desc = '[S]earch [A]ll' })
       end
 }
 

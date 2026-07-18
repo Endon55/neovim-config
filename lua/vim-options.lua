@@ -10,3 +10,6 @@ vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, { desc = 'LSP Rename Symbo
 vim.opt.breakindent = true
 vim.opt.showbreak = "↳ "
 vim.opt.clipboard = "unnamedplus"
+vim.opt.mouse = 'a'
+vim.keymap.set('n', '<S-CR>', 'o<Esc>')
+vim.keymap.set('n', '<CR>', 'O<Esc>')

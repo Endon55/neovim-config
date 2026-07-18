@@ -9,6 +9,7 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
       { out, "WarningMsg" },
       { "\nPress any key to exit..." },
     }, true, {})
+
     vim.fn.getchar()
     os.exit(1)
   end
@@ -29,4 +30,3 @@ vim.diagnostic.config({
 	signs = true,
 	underline = true,
 })
-
