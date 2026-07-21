@@ -5,4 +5,5 @@
 !lua/
 !init.lua
 !.gitignore
+!NvimCheat
 

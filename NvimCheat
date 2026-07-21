@@ -1,0 +1,34 @@
+comment block - gcc gc
+
+newline after cursor - enter
+newline before cursor - space enter
+
+build project - ctrl b
+
+rename symbol - space rn
+symbol info - K
+
+search buffer - space sb
+search project - space sa
+search file - ctrl p
+
+search document symbols - space ss
+search all symbols - space sas
+
+seek to symbol def - ctrl ]
+open window to symbol def - ctrl w  ctrl ]
+seek func up - [
+seek func down - ]
+
+
+return to previous spot - ctrl o
+
+
+highlight word under cursor - viw
+highlight all occurances of selection - *
+jump to next occurance - n
+jump to prev occurance - N
+un-highlight all - :noh
+
+toggle header/source file - th
+toggle h/s into new buffer - tth
