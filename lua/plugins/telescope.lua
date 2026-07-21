@@ -11,6 +11,10 @@ dependencies = {
         --vim.keymap.set('n', '<leader>', builtin.find_files, {})
         vim.keymap.set('n', '<leader>sb', builtin.current_buffer_fuzzy_find, { desc = '[S]earch current [B]uffer' })
         vim.keymap.set('n', '<leader>sa', builtin.live_grep, { desc = '[S]earch [A]ll' })
+        
+        vim.keymap.set('n', '<leader>ss', builtin.lsp_document_symbols, { desc = '[S]earch [S]ymbols' })
+        vim.keymap.set('n', '<leader>sas', builtin.lsp_workspace_symbols, { desc = '[S]earch [A]ll [S]ymbols' })
+
       end
 }
 
