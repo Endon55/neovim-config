@@ -18,7 +18,7 @@ return {
     {
         "mason-org/mason-lspconfig.nvim",
         opts = {
-            ensure_installed = { "lua_ls", "clangd", "ols" },
+            ensure_installed = { "lua_ls", "clangd", "ols", "slang_server" },
         },
     },
 
@@ -41,14 +41,6 @@ return {
                 },
             })
             vim.lsp.config('ols', {
-                -- on_attach = function(client, bufnr)
-                --     client.server_capabilities.textDocumentSync = {
-                --         openClose = true,
-                --         change = 1,
-                --         save = { includeText = true }
-                --     }
-                --     end,
-                --
                 cmd = { 'ols' },
                 filetypes = { 'odin' },
                 root_markers = { 'ols.json', '.git' },
@@ -63,25 +55,22 @@ return {
                     enable_snippets = true,
                     --enable_checker_only_saved = false,
                    collections = {
-                        {name = "shared", path = vim.fn.expand('$HOME/source/odin_lang') }
+                        {name = "shared", path = vim.fn.expand('$HOME/source/odin_lang') },
+                        {name = "libs", path = '/libs'}
                    },
                 },
             })
-            -- vim.api.nvim_create_autocmd("InsertLeave", {
-            --     pattern = "*.odin",
-            --     callback = function()
-            --         -- Triggers an instant internal buffer sync to the LSP server
-            --         vim.lsp.buf_notify(0, "textDocument/didChange", vim.lsp.util.make_text_document_params())
-            --
-            --         -- Refreshes the local UI display for diagnostics
-            --         vim.diagnostic.show(nil, 0)
-            --     end,
+            vim.lsp.config('slang_server', {
+                cmd = {'slangd'},
+                filetypes = {'slang'},
+                root_markers = {'.git', 'slang.toml', 'shaders'}
+            })
 
-            -- })
-            -- 2. Turn on the servers. 
-            -- vim.lsp.config automatically merges any configurations you wrote above 
-            -- with the data stored inside the `nvim-lspconfig` repository.
-            vim.lsp.enable({ "lua_ls", "clangd", "ols" })
+
+
+            vim.lsp.enable({ "lua_ls", "clangd", "ols", "slang_server"})
+
+
         end
     }
 }

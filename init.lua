@@ -22,22 +22,8 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 require("vim-options")
 require("lazy").setup("plugins", opts)
-
--- vim.api.nvim_create_autocmd("InsertLeave", {
---   pattern = "*",
---   callback = function()
---     -- 1. Grab the active language server clients for the current file
---     local clients = vim.lsp.get_clients({ bufnr = 0 })
---
---     for _, client in ipairs(clients)  do
---       -- 2. Target ols to simulate a document sync
---       if client.name == "ols" then
---         local bufnr = vim.api.nvim_get_current_buf()
---
---         -- 3. Force Neovim to instantly notify ols of the textual changes
---         vim.lsp.buf_request(bufnr, "textDocument/didChange", vim.lsp.util.make_text_document_params())
---         break
---       end
---     end
---   end,
--- })
+vim.filetype.add({
+    extension = {
+        slang = "slang",
+    },
+})

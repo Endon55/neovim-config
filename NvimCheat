@@ -1,55 +1,60 @@
-comment block - gcc gc
-
-newline after cursor - enter
-newline before cursor - space enter
 
 build project - ctrl b
 
-rename symbol - space rn
-symbol info - K
+Restructuring - 
+    rename symbol - space rn
+    symbol info - K
+    delete word - dw
+    delete till end of line - D
+    comment block - gcc gc
 
-search buffer - space sb
-search project - space sa
-search file - ctrl p
-
-search document symbols - space ss
-search all symbols - space sas
-
-seek to symbol def - ctrl ]
-open window to symbol def - ctrl w  ctrl ]
-seek func up - [
-seek func down - ]
-
-
-return to previous spot - ctrl o
-
-delete word - dw
-delete till end of line - D
-highlight word under cursor - viw
-highlight all occurances of selection - *
-jump to next occurance - n
-jump to prev occurance - N
-un-highlight all - :noh
-
-toggle header/source file - space th
-toggle h/s into new buffer - space tth
-
-add semicolon to end of line(normal) - space ;
-add semicolon to end of line(insert) - ctrl e (terminals apparently dont support ctrl-*punctuation*)
-
-Navigation - 
-jump x lines/characters - (number) h/j/k/l
-center cursor position on screen - zz
-jump to next word - w/W
-jump to end of word - e/E
+Formatting - 
+    add semicolon to end of line(normal) - space ;
+    add semicolon to end of line(insert) - ctrl e (terminals apparently dont support ctrl-*punctuation*)
+    newline after cursor - enter
+    newline before cursor - space enter
+    format line/block - ==
+    tab/detab line/block - <</>>
 
 
-Tabs -
-next tab - gt
-prev tab - gT
+Navigation -
+    Telescope -
 
-Telescope -
-open telescope - ctrl p
-open selection in vsplit/hsplit/tab buffer = ctrl v/ctrl x/ctrl t
+        open telescope - ctrl p
+        open selection in vsplit/hsplit/tab buffer = ctrl v/ctrl x/ctrl t
+
+    return to previous spot - ctrl o
+    jump x lines/characters - (number) h/j/k/l
+    center cursor position on screen - zz
+    jump to next word - w/W
+    jump to end of word - e/E
+    toggle header/source file - space th
+    toggle h/s into new buffer - space tth
+    highlight word under cursor - viw
+    highlight all occurances of selection - *
+    jump to next occurance - n
+    jump to prev occurance - N
+    un-highlight all - :noh
+    search buffer - space sb
+    search project - space sa
+    search file - ctrl p
+
+    search document symbols - space ss
+    search all symbols - space sas
+
+    seek to symbol def - ctrl ]
+    open window to symbol def - ctrl w  ctrl ]
+    seek func up - [
+    seek func down - ]
+    Tabs -
+    next tab - gt
+    prev tab - gT
+
+Buffers - 
+snap current left - ctrl-w H
+snap current top - ctrl-w K
+swap buffer pos - ctrl-w r
+
+
 
 
