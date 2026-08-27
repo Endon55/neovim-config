@@ -1,4 +1,5 @@
  return {
+     {
 	"eldritch-theme/eldritch.nvim",
 	name = "eldritch",
 	priority = 1000,
@@ -9,8 +10,22 @@
 			transparent = true,
 		})
 	end,
- }
+},
+{
+    "erl-koenig/theme-hub.nvim",
+    dependencies = {
+        "nvim-lua/plenary.nvim",
+        -- Optional: for themes that use lush (will be notified if a theme requires it)
+        -- "rktjmp/lush.nvim"
+    },
+    config = function()
+        require("theme-hub").setup({
+            -- Configuration options (see below)
+        })
+    end,
+}
 
+}
 --return { 
 --"marko-cerovac/material.nvim",
 --	name = "material", 
@@ -22,4 +37,5 @@
 ----		vim.cmd.colorscheme "material"
 --	  end,
  -- }
+ --
  --
