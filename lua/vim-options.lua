@@ -46,4 +46,7 @@ vim.api.nvim_create_autocmd('TermClose', {
     vim.cmd('bdelete! ' .. vim.fn.expand('<abuf>'))
   end,
 })
+--Disable ctlr-z
 vim.keymap.set({'n', 'v', 'i'}, '<C-z>', '<Nop>', { silent = true })
+
+vim.keymap.set("n", "gt", vim.lsp.buf.type_definition, { desc = "Go to Type Definition" })

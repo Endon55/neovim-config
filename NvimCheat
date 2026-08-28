@@ -1,9 +1,11 @@
 
 build project - ctrl b
 
+LSP - 
+    preview symbol definition - K
+
 Restructuring - 
     rename symbol - space rn
-    symbol info - K
     delete word - dw
     delete till end of line - D
     comment block - gcc gc
@@ -16,13 +18,10 @@ Formatting -
     format line/block - ==
     tab/detab line/block - <</>>
 
-
 Navigation -
     Telescope -
-
         open telescope - ctrl p
         open selection in vsplit/hsplit/tab buffer = ctrl v/ctrl x/ctrl t
-
     return to previous spot - ctrl o
     jump x lines/characters - (number) h/j/k/l
     center cursor position on screen - zz
