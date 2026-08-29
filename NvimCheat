@@ -3,12 +3,16 @@ build project - ctrl b
 
 LSP - 
     preview symbol definition - K
+    view errors - space sd
+    
 
 Restructuring - 
     rename symbol - space rn
     delete word - dw
     delete till end of line - D
     comment block - gcc gc
+
+
 
 Formatting - 
     add semicolon to end of line(normal) - space ;
@@ -54,6 +58,9 @@ snap current left - ctrl-w H
 snap current top - ctrl-w K
 swap buffer pos - ctrl-w r
 
-
+tmux - 
+command key - `
+move panes - command h/j/k/l
+switch windows - command 0/1/2/3/etc..
 
 

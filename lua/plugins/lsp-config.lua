@@ -45,18 +45,20 @@ return {
                 filetypes = { 'odin' },
                 root_markers = { 'ols.json', '.git' },
                 init_options = {
-                    checker_args = "-vet -strict-style -debug",
+                    checker_args = "-strict-style -debug",
                     enable_semantic_tokens = true,
                     enable_fake_methods = true,
                     enable_inlay_hints_params = true,
                     enable_inlay_hints_default_params = true,
                     enable_inlay_hints_implicit_return = true,
                     enable_inlay_hints_optional_result = true,
+                    enable_checker_workspace_diagnostics = true,
+                    enable_checker_only_saved = false,
                     enable_snippets = true,
                     --enable_checker_only_saved = false,
                    collections = {
                         {name = "shared", path = vim.fn.expand('$HOME/source/odin_lang') },
-                        {name = "libs", path = '/libs'}
+                        {name = "libs", path = './libs'}
                    },
                 },
             })
