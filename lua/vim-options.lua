@@ -28,12 +28,18 @@ end)
 vim.keymap.set('n', '<leader>;', 'A;<Esc>', {desc = 'Append Semicolon'})
 vim.keymap.set('i', '<C-e>', '<Esc>A;<Esc>', {desc = 'Append Semicolon insert'})
 vim.keymap.set('i', "jkl", '<Esc>:up<CR>', {desc = "leave insert and save"})
+
 if vim.fn.filereadable("CMakeLists.txt") == 1 then
     vim.keymap.set('n','<C-b>', ':wa|:CMakeBuild<CR>', {})
 elseif vim.fn.filereadable("ols.json") == 1 then
-    vim.keymap.set('n','<C-b>', ':wa|:silent !./run.sh<CR>')
-end
+    -- vim.keymap.set('n','<C-b>', ':wa|:silent !./run.sh<CR>')
+    vim.keymap.set('n','<C-b>', function()
+        vim.cmd('write')
+        local run_cmd = './run.sh'
+        vim.fn.system("tmux send-keys -t .1 '" .. run_cmd .. "' C-m")
 
+    end, {desc = "Build in tmux pane"})
+end
 
 vim.diagnostic.config({
 	virtual_text = true,
@@ -52,3 +58,61 @@ vim.api.nvim_create_autocmd('TermClose', {
 vim.keymap.set({'n', 'v', 'i'}, '<C-z>', '<Nop>', { silent = true })
 
 vim.keymap.set("n", "gt", vim.lsp.buf.type_definition, { desc = "Go to Type Definition" })
+
+
+--Toggle Themes
+vim.keymap.set('n', '<leader>tt', function()
+
+    -- 1. Programmatically grab the current active profile ID from the system
+    local handle = io.popen("gsettings get org.gnome.Terminal.ProfilesList default")
+    if not handle then return end
+    local profile_id = handle:read("*a"):gsub("['\n%s]", "") -- Strip single quotes and line breaks
+    handle:close()
+
+    -- If it failed to grab an ID, exit early to prevent errors
+    if profile_id == "" then return end
+    local is_light = (vim.g.colors_name == "tokyonight-day")
+    vim.cmd("hi clear")
+
+    if vim.fn.exists("syntax_on") == 1 then
+        vim.cmd("syntax reset")
+    end
+    if is_light then
+        vim.o.background = "dark"
+        vim.cmd("colorscheme eldritch")
+        package.loaded["eldritch"] = nil
+        package.loaded["eldritch.palette"] = nil
+        package.loaded["eldritch.highlights"] = nil
+        package.loaded["eldritch.config"] = nil
+
+        -- Load theme fresh
+        require("eldritch").setup({})
+        vim.cmd("colorscheme eldritch")
+        os.execute(string.format("gsettings set org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:%s/ use-theme-colors false", profile_id))
+        os.execute(string.format("gsettings set org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:%s/ background-color '#13121c'", profile_id))
+        os.execute(string.format("gsettings set org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:%s/ foreground-color '#c5c5c5'", profile_id))
+
+    else
+        vim.o.background = "light"
+        vim.cmd("colorscheme tokyonight-day")
+        os.execute(string.format("gsettings set org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:%s/ use-theme-colors false", profile_id))
+        os.execute(string.format("gsettings set org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:%s/ background-color '#e1e2e7'", profile_id))
+        os.execute(string.format("gsettings set org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:%s/ foreground-color '#3760bf'", profile_id))
+    end
+
+    local has_lualine, lualine = pcall(require, "lualine")
+    if has_lualine then
+        lualine.setup({ options = { theme = vim.g.colors_name } })
+    end
+
+    -- Refresh nvim-scrollbar (if used)
+    local has_scrollbar, scrollbar = pcall(require, "scrollbar")
+    if has_scrollbar then
+        scrollbar.clear()
+    end
+end, {desc = "Togge Theme light/dark"})
+
+
+
+
+

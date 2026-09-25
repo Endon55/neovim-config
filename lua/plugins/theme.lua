@@ -23,8 +23,13 @@
             -- Configuration options (see below)
         })
     end,
+},
+{
+  "folke/tokyonight.nvim",
+  lazy = false,
+  priority = 1000,
+  opts = {},
 }
-
 }
 --return { 
 --"marko-cerovac/material.nvim",

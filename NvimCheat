@@ -26,6 +26,13 @@ Navigation -
     Telescope -
         open telescope - ctrl p
         open selection in vsplit/hsplit/tab buffer = ctrl v/ctrl x/ctrl t
+    Harpoon - 
+        add quick jump - space a
+        jump to buffer 1/2/3/4 - space 1/space 2/3/4
+        next buffer - Ctrl Shift N
+        prev buffer - Ctrl Shift P
+
+
     return to previous spot - ctrl o
     jump x lines/characters - (number) h/j/k/l
     center cursor position on screen - zz
@@ -54,13 +61,13 @@ Navigation -
     prev tab - gT
 
 Buffers - 
-snap current left - ctrl-w H
-snap current top - ctrl-w K
-swap buffer pos - ctrl-w r
+    snap current left - ctrl-w H
+    snap current top - ctrl-w K
+    swap buffer pos - ctrl-w r
 
 tmux - 
-command key - `
-move panes - command h/j/k/l
-switch windows - command 0/1/2/3/etc..
+    command key - `
+    move panes - command h/j/k/l
+    switch windows - command 0/1/2/3/etc..
 
 
