@@ -36,6 +36,7 @@ elseif vim.fn.filereadable("ols.json") == 1 then
     vim.keymap.set('n','<C-b>', function()
         vim.cmd('write')
         local run_cmd = './run.sh'
+        vim.fn.system("tmux send-keys -t .1 -X cancel")
         vim.fn.system("tmux send-keys -t .1 '" .. run_cmd .. "' C-m")
 
     end, {desc = "Build in tmux pane"})

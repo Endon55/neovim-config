@@ -5,22 +5,25 @@ LSP -
     preview symbol definition - K
     view errors - space sd
     
-
 Restructuring - 
-    rename symbol - space rn
     delete word - dw
     delete till end of line - D
-    comment block - gcc gc
-
-
+    delete bracket contents by delimiter - di[ di( di{ 
 
 Formatting - 
-    add semicolon to end of line(normal) - space ;
-    add semicolon to end of line(insert) - ctrl e (terminals apparently dont support ctrl-*punctuation*)
+    rename symbol - space rn
     newline after cursor - enter
     newline before cursor - space enter
     format line/block - ==
     tab/detab line/block - <</>>
+    comment block - gcc gc
+    add semicolon to end of line(normal) - space ;
+    add semicolon to end of line(insert) - ctrl e (terminals apparently dont support ctrl-*punctuation*)
+
+Multicursor - 
+    add cursor up - ctrl up
+    add cursor down - ctrl down
+    delete cursor - space x
 
 Navigation -
     Telescope -
@@ -56,9 +59,10 @@ Navigation -
     open window to symbol def - ctrl w  ctrl ]
     seek func up - [
     seek func down - ]
+
     Tabs -
-    next tab - gt
-    prev tab - gT
+        next tab - gt
+        prev tab - gT
 
 Buffers - 
     snap current left - ctrl-w H
@@ -69,5 +73,5 @@ tmux -
     command key - `
     move panes - command h/j/k/l
     switch windows - command 0/1/2/3/etc..
-
+    kill session - tmux kill-session
 
