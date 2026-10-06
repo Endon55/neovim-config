@@ -7,6 +7,9 @@ dependencies = {
       },
       opts = {
           defaults = {
+              file_ignore_patterns= {
+                  "build",
+              },
               mappings = {
                   n = {
                       -- Press 'q' in normal mode to close the telescope picker
@@ -23,6 +26,10 @@ dependencies = {
               buffers = {
                   initial_mode = "normal",
               },
+              find_files = {
+                  -- Pass custom flags to ripgrep for find_files
+                  find_command = { "rg", "--files", "--hidden", "--no-ignore" },
+    }
           },
       },
       keys = {
