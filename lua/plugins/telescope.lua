@@ -8,7 +8,9 @@ dependencies = {
       opts = {
           defaults = {
               file_ignore_patterns= {
-                  "build",
+                  "build/", "%.git/", "bin/", "libs/", "target/",
+                  "%.so$", "%.o$", "%.a", "%.bin$", "%.dmg$", "%.iso$",
+                  "%.spv$",
               },
               mappings = {
                   n = {
@@ -27,8 +29,10 @@ dependencies = {
                   initial_mode = "normal",
               },
               find_files = {
+                    hidden = true,
+                    no_ignore = true,
                   -- Pass custom flags to ripgrep for find_files
-                  find_command = { "rg", "--files", "--hidden", "--no-ignore" },
+                  -- find_command = { "rg", "--files", "--hidden", "--no-ignore" },
     }
           },
       },
@@ -39,18 +43,9 @@ dependencies = {
           { '<leader>sa', function() require("telescope.builtin").live_grep() end, desc = "[S]earch [A]ll" },
           { '<leader>ss', function() require("telescope.builtin").lsp_document_symbols() end, desc = "[S]earch [S]ymbols" },
           { '<leader>sas', function() require("telescope.builtin").lsp_workspace_symbols() end, desc = "[S]earch [A]ll [S]ymbols" },
+          { '<leader>sf', function() require("telescope.builtin").lsp_document_symbols({symbols = { "function", "method" },})end, desc = "[S]earch [F]unctions" },
+          { '<leader>saf', function() require("telescope.builtin").lsp_dynamic_workspace_symbols({symbols = { "function", "method" },})end, desc = "[S]earch [A]ll [F]unctions" },
           { '<leader>sd', function() require("telescope.builtin").diagnostics() end, desc = "[S]earch [D]iagnostics" },
       },
-
-      
-      -- config = function()
-      --   local builtin = require("telescope.builtin")
-      --   vim.keymap.set('n', '<C-p>', builtin.find_files, {})
-      --   vim.keymap.set('n', '<leader>sb', builtin.current_buffer_fuzzy_find, { desc = '[S]earch current [B]uffer' })
-      --   vim.keymap.set('n', '<leader>sa', builtin.live_grep, { desc = '[S]earch [A]ll' })
-      --   vim.keymap.set('n', '<leader>ss', builtin.lsp_document_symbols, { desc = '[S]earch [S]ymbols' })
-      --   vim.keymap.set('n', '<leader>sas', builtin.lsp_workspace_symbols, { desc = '[S]earch [A]ll [S]ymbols' })
-      --   vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
-      -- end
 }
 

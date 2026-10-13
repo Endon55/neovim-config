@@ -11,6 +11,8 @@ Restructuring -
     delete bracket contents by delimiter - di[ di( di{ 
 
 Formatting - 
+    undo - u
+    redo - ctrl r
     rename symbol - space rn
     newline after cursor - enter
     newline before cursor - space enter
@@ -36,7 +38,8 @@ Navigation -
         prev buffer - Ctrl Shift P
 
 
-    return to previous spot - ctrl o
+    backwards to last spot/file - ctrl o
+    forwards to last spot/file - ctrl i
     jump x lines/characters - (number) h/j/k/l
     center cursor position on screen - zz
     jump to next word - w/W
