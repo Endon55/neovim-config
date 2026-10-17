@@ -64,3 +64,53 @@ vim.api.nvim_create_autocmd('TermClose', {
   end,
 })
 
+
+local function silent_fuzzy_symbol_jump()
+  vim.ui.input({ prompt = 'Fuzzy jump to symbol: ' }, function(query)
+    if not query or query == "" then return end
+
+    local params = { textDocument = vim.lsp.util.make_text_document_params() }
+    vim.lsp.buf_request(0, 'textDocument/documentSymbol', params, function(err, result, _, _)
+      if err or not result or #result == 0 then
+        print("No LSP symbols found in this file.")
+        return
+      end
+
+      local symbol_list = {}
+      local symbol_map = {}
+
+      -- Recursively flatten code structure across all potential LSP formats
+      local function flatten(items)
+        for _, item in ipairs(items) do
+          table.insert(symbol_list, item.name)
+          -- Extract coordinates robustly: checks nested range first, then flat format location range
+          local range = item.range or (item.location and item.location.range)
+          symbol_map[item.name] = range
+          if item.children then
+            flatten(item.children)
+          end
+        end
+      end
+      flatten(result)
+
+      -- Execute Neovim's built-in fuzzy matching
+      local matches = vim.fn.matchfuzzy(symbol_list, query)
+
+      if matches and #matches > 0 then
+        local best_match_name = matches[1]
+        local range = symbol_map[best_match_name]
+        if range and range.start then
+          -- LSP lines are 0-indexed, so we add 1 for Neovim's 1-indexed system
+          vim.api.nvim_win_set_cursor(0, { range.start.line + 1, range.start.character })
+          vim.cmd("normal! zz")
+        else
+          print("Found match, but could not resolve its line coordinates.")
+        end
+      else
+        print("No fuzzy match found for: " .. query)
+      end
+    end)
+  end)
+end
+
+vim.keymap.set('n', '<leader>sd', silent_fuzzy_symbol_jump, { desc = 'Silent fuzzy symbol jump' })
