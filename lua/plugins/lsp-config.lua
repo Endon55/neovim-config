@@ -41,23 +41,19 @@ return {
                 },
             })
             vim.lsp.config('ols', {
-                cmd = { 'ols' },
+                -- Run ols in its own scope so an OOM kill/limit hits only ols, not nvim
+                cmd = { 'systemd-run', '--user', '--scope', '-q',
+                        '-p', 'MemoryHigh=700M', '-p', 'MemoryMax=1G', 'ols' },
                 filetypes = { 'odin' },
                 root_markers = { 'ols.json', '.git' },
                 init_options = {
-                    checker_args = "-strict-style -debug",
+                    checker_args = "",
                     enable_semantic_tokens = true,
                     enable_fake_methods = true,
-                    enable_inlay_hints_params = true,
-                    enable_inlay_hints_default_params = true,
-                    enable_inlay_hints_implicit_return = true,
-                    enable_inlay_hints_optional_result = true,
-                    enable_checker_workspace_diagnostics = true,
-                    enable_checker_only_saved = false,
+                    enable_checker_workspace_diagnostics = false,
+                    enable_checker_only_saved = true,
                     enable_snippets = true,
-                    --enable_checker_only_saved = false,
                    collections = {
-                        {name = "shared", path = vim.fn.expand('$HOME/source/odin_lang') },
                         {name = "libs", path = './libs'}
                    },
                 },
