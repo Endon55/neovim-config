@@ -12,7 +12,6 @@ vim.opt.clipboard = "unnamedplus"
 vim.opt.mouse = 'a'
 
 vim.keymap.set('n', 'K', vim.lsp.buf.hover, {desc = "Preview Symbol Def"})
-vim.keymap.set('i', '<C-k>', vim.lsp.buf.signature_help, { desc = "LSP Signature Help" })
 
 vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, { desc = 'LSP Rename Symbol' })
 vim.keymap.set('n', '<S-CR>', 'O<Esc>')
