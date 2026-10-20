@@ -33,28 +33,32 @@ vim.filetype.add({
 
 local odin_save_group = vim.api.nvim_create_augroup("OdinAutoSave", { clear = true })
 
--- Handles leaving Insert mode, general Text changes, and pauses in Normal mode
-vim.api.nvim_create_autocmd({ "InsertLeave", "TextChanged", "CursorHold" }, {
-    group = odin_save_group,
-    pattern = "*.odin",
-    callback = function()
-        if vim.bo.modified and vim.bo.buftype == "" then
-            vim.cmd("silent! update")
-        end
-    end,
-    nested = true,
-})
+-- Each save makes ols run a ~2s, ~500MB `odin check`, so saves are debounced and
+-- throttled to keep checks from piling up on top of each other.
+local SAVE_DEBOUNCE_MS = 700
+local SAVE_MIN_INTERVAL_MS = 3000
+local save_timer = vim.uv.new_timer()
+local last_save = -SAVE_MIN_INTERVAL_MS
 
--- Handles typing pauses while actively inside Insert Mode
-vim.api.nvim_create_autocmd("CursorHoldI", {
+local function save_buf(buf)
+    if not vim.api.nvim_buf_is_valid(buf) then return end
+    if not (vim.bo[buf].modified and vim.bo[buf].buftype == "") then return end
+    if vim.api.nvim_get_mode().mode:sub(1, 1) == "i" then return end
+    vim.api.nvim_buf_call(buf, function() vim.cmd("silent! update") end)
+    last_save = vim.uv.now()
+end
+
+local function schedule_save(buf)
+    local wait = math.max(SAVE_DEBOUNCE_MS, SAVE_MIN_INTERVAL_MS - (vim.uv.now() - last_save))
+    save_timer:stop()
+    save_timer:start(wait, 0, vim.schedule_wrap(function() save_buf(buf) end))
+end
+
+-- Leaving Insert mode and edits in Normal mode (not every keystroke in Insert mode)
+vim.api.nvim_create_autocmd({ "InsertLeave", "TextChanged" }, {
     group = odin_save_group,
     pattern = "*.odin",
-    callback = function()
-        if vim.bo.modified and vim.bo.buftype == "" then
-            vim.cmd("silent! update")
-        end
-    end,
-    nested = true,
+    callback = function(args) schedule_save(args.buf) end,
 })
 
 vim.api.nvim_create_autocmd('TermClose', {

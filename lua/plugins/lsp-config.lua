@@ -43,7 +43,7 @@ return {
             vim.lsp.config('ols', {
                 -- Run ols in its own scope so an OOM kill/limit hits only ols, not nvim
                 cmd = { 'systemd-run', '--user', '--scope', '-q',
-                        '-p', 'MemoryHigh=700M', '-p', 'MemoryMax=1G', 'ols' },
+                        '-p', 'MemoryMax=1500M', 'ols' },
                 filetypes = { 'odin' },
                 root_markers = { 'ols.json', '.git' },
                 init_options = {
@@ -53,9 +53,6 @@ return {
                     enable_checker_workspace_diagnostics = false,
                     enable_checker_only_saved = true,
                     enable_snippets = true,
-                   collections = {
-                        {name = "libs", path = './libs'}
-                   },
                 },
             })
             vim.lsp.config('slang_server', {
